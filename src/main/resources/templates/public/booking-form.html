@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(pageTitle='Foglalás - Autókölcsönző', content=~{::.content-wrapper})}">
+<body>
+<div class="content-wrapper">
+    <h2>Foglalás véglegesítése</h2>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Kiválasztott autó</h4>
+            <div class="card">
+                <img th:src="${car.imageUrl}" class="card-img-top" alt="Autó képe">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${car.brand + ' ' + car.model}"></h5>
+                    <p class="card-text">Napi ár: <strong th:text="${car.dailyPrice + ' Ft'}"></strong></p>
+                    <p class="card-text">Foglalás időtartama: <strong th:text="${numberOfDays} + ' nap'"></strong></p>
+                    <p class="card-text fs-4">Teljes összeg: <strong th:text="${totalPrice} + ' Ft'"></strong></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h4>Az Ön adatai</h4>
+            <form th:action="@{/book}" th:object="${booking}" method="post">
+                <input type="hidden" th:field="*{carId}" />
+                <input type="hidden" th:field="*{startDate}" />
+                <input type="hidden" th:field="*{endDate}" />
+
+                <div class="mb-3">
+                    <label for="customerName" class="form-label">Teljes név</label>
+                    <input type="text" id="customerName" class="form-control" th:field="*{customerName}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="customerEmail" class="form-label">Email cím</label>
+                    <input type="email" id="customerEmail" class="form-control" th:field="*{customerEmail}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="customerAddress" class="form-label">Cím</label>
+                    <input type="text" id="customerAddress" class="form-control" th:field="*{customerAddress}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="customerPhone" class="form-label">Telefonszám</label>
+                    <input type="tel" id="customerPhone" class="form-control" th:field="*{customerPhone}" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Foglalás véglegesítése</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

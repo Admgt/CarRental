@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(pageTitle='Autók kezelése - Admin', content=~{::.content-wrapper})}">
+<body>
+<div class="content-wrapper">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>Autók kezelése</h1>
+        <a th:href="@{/admin/cars/new}" class="btn btn-success">Új autó felvitele</a>
+    </div>
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Márka</th>
+            <th>Modell</th>
+            <th>Napi ár</th>
+            <th>Státusz</th>
+            <th>Műveletek</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="car : ${cars}">
+            <td th:text="${car.id}"></td>
+            <td th:text="${car.brand}"></td>
+            <td th:text="${car.model}"></td>
+            <td th:text="${car.dailyPrice + ' Ft'}"></td>
+            <td>
+                <span th:if="${car.active}" class="badge bg-success">Aktív</span>
+                <span th:unless="${car.active}" class="badge bg-danger">Inaktív</span>
+            </td>
+            <td>
+                <a th:href="@{/admin/cars/edit/{id}(id=${car.id})}" class="btn btn-sm btn-primary">Szerkesztés</a>
+                <form th:if="${car.active}" th:action="@{/admin/cars/deactivate/{id}(id=${car.id})}" method="post" class="d-inline ms-1">
+                    <button type="submit" class="btn btn-sm btn-warning" onclick="return confirm('Biztosan deaktiválja ezt az autót?')">Deaktiválás</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

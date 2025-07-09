@@ -1,4 +1,4 @@
-package com.autokolcsonzo.autokolcsonzo;
+package com.autokolcsonzo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

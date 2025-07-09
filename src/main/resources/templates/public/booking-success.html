@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(pageTitle='Sikeres foglalás', content=~{::.content-wrapper})}">
+<body>
+<div class="content-wrapper">
+    <div class="alert alert-success text-center">
+        <h1 class="display-4">Sikeres foglalás!</h1>
+        <p class="lead">Köszönjük, hogy minket választott! A foglalás részleteit elküldtük az Ön email címére.</p>
+        <hr>
+        <a th:href="@{/}" class="btn btn-primary">Vissza a főoldalra</a>
+    </div>
+</div>
+</body>
+</html>

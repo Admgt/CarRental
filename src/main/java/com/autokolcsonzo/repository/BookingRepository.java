@@ -1,6 +1,6 @@
-package com.autokolcsonzo.autokolcsonzo.repository;
+package com.autokolcsonzo.repository;
 
-import com.autokolcsonzo.autokolcsonzo.entity.Booking;
+import com.autokolcsonzo.entity.Booking;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
