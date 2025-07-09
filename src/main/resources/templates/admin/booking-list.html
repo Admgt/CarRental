@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(pageTitle='Foglalások - Admin', content=~{::.content-wrapper})}">
+<body>
+<div class="content-wrapper">
+    <h1>Beérkezett foglalások</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Foglalás ID</th>
+            <th>Autó</th>
+            <th>Ügyfél neve</th>
+            <th>Email</th>
+            <th>Időszak</th>
+            <th>Teljes ár</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="booking : ${bookings}">
+            <td th:text="${booking.id}"></td>
+            <td th:text="${booking.car.brand + ' ' + booking.car.model}"></td>
+            <td th:text="${booking.customerName}"></td>
+            <td th:text="${booking.customerEmail}"></td>
+            <td th:text="${#temporals.format(booking.startDate, 'yyyy-MM-dd')} + ' - ' + ${#temporals.format(booking.endDate, 'yyyy-MM-dd')}"></td>
+            <td th:text="${booking.totalPrice + ' Ft'}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

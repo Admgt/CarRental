@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(pageTitle='Kezdőlap - Autókölcsönző', content=~{::.content-wrapper})}">
+
+<body>
+<div class="content-wrapper">
+    <div class="p-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">Találja meg a tökéletes autót!</h1>
+            <p class="col-md-8 fs-4">Válasszon dátumot és keressen szabad autóink között.</p>
+        </div>
+    </div>
+
+    <form th:action="@{/search}" method="get" class="card p-3 mb-4">
+        <div class="row g-3 align-items-end">
+            <div class="col-md">
+                <label for="startDate" class="form-label">-tól</label>
+                <input type="date" id="startDate" name="startDate" class="form-control" required th:value="${startDate}">
+            </div>
+            <div class="col-md">
+                <label for="endDate" class="form-label">-ig</label>
+                <input type="date" id="endDate" name="endDate" class="form-control" required th:value="${endDate}">
+            </div>
+            <div class="col-md-auto">
+                <button type="submit" class="btn btn-primary">Keresés</button>
+            </div>
+        </div>
+    </form>
+
+    <div th:if="${cars != null}">
+        <h2 th:if="${#lists.isEmpty(cars)}" class="text-center">Nincs szabad autó a megadott időszakban.</h2>
+        <div th:if="${not #lists.isEmpty(cars)}" class="row">
+            <h3>Szabad autók</h3>
+            <div th:each="car : ${cars}" class="col-md-4 mb-3">
+                <div class="card h-100">
+                    <img th:src="${car.imageUrl}" class="card-img-top" alt="Autó képe" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${car.brand + ' ' + car.model}">Autó neve</h5>
+                        <p class="card-text" th:text="${car.dailyPrice + ' Ft / nap'}">Napi ár</p>
+                    </div>
+                    <div class="card-footer">
+                        <a th:href="@{/book/{carId}(carId=${car.id}, startDate=${startDate}, endDate=${endDate})}" class="btn btn-success w-100">Lefoglalom</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
